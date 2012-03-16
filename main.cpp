@@ -1,6 +1,9 @@
 #include <QtGui/QApplication>
 #include "qmlapplicationviewer.h"
 #include <jltcinterface.h>
+#include <stdio.h>
+#include <stdint.h>
+#include <QGraphicsObject>
 
 int main(int argc, char *argv[])
 {

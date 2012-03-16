@@ -2,8 +2,12 @@
 #define JLTCINTERFACE_H
 
 #include <QObject>
-#include <QtMultimedia>
+#include <QVariant>
+#include <QAudioInput>
+extern "C"{
 #include <ltcsmpte/ltcsmpte.h>
+#include <stdint.h>
+}
 class SmpteLTCDecodeInterface : public QObject
 {
     Q_OBJECT

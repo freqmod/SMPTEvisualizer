@@ -1,4 +1,5 @@
-#include <QtMultimedia>
+#include <QAudio>
+#include <QtCore>
 #include "jltcinterface.h"
 #define FPS_NUM 25
 #define FPS_DEN 1
