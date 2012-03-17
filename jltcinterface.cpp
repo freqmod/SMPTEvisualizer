@@ -41,10 +41,11 @@ void SmpteLTCDecodeInterface::readyRead(){
     int errors;
     //if(inputIO->bytesAvailable()){//FIXME: Is it enough data avialable, or do we need a specific buffer size?
     QByteArray data = inputIO->readAll();
+//    printf("GOTDATA%d\n", data.size());
     if(data.size()){
         SMPTEDecoderWrite(decoder, (sample_t*)data.constData(), data.size()/sizeof(sample_t), totalPos);
         totalPos+=data.size();
-        while (SMPTEDecoderRead(decoder, &frame)) {
+        if (SMPTEDecoderRead(decoder, &frame)) { // use while isteadof if here, if we want to process all packets
                                SMPTETime stime;
                                int ms;
 
@@ -68,21 +69,22 @@ void SmpteLTCDecodeInterface::readyRead(){
                                emit timeRecieved(QVariant(mtime));
                                emit timeRecieved(ms);
 
-//                               printf("%02d:%02d:%02d%c%02d %8d %8lu %8lu"/*" %8lu"*/" %4d\n",
-//                                          stime.hours, stime.mins,
-//                                          stime.secs,
-//                                          (frame.base.dfbit) ? DF_DELIMITER : NDF_DELIMITER,
-//                                          stime.frame,
-//                                          ms,                          // Timecode in milliseconds
-//                                          //total,                     // First sample of the current buffer
-//                                          frame.startpos,      // First sample of the LTC frame
-//                                          frame.endpos,        // Last(!) sample of the LTC frame
-//                                          //frame.endpos - ((ms - TEST_N_DEBUG_MS_OFFSET) * sampleRate / 1000), // TEST'n'DEBUG
-//                                          errors                       // Error count
-//                                          );
+/*                               printf("%02d:%02d:%02d%c%02d %8d %8lu %8lu %4d\n",
+                                          stime.hours, stime.mins,
+                                          stime.secs,
+                                          (frame.base.dfbit) ? DF_DELIMITER : NDF_DELIMITER,
+                                          stime.frame,
+                                          ms,                          // Timecode in milliseconds
+                                          //total,                     // First sample of the current buffer
+                                          frame.startpos,      // First sample of the LTC frame
+                                          frame.endpos,        // Last(!) sample of the LTC frame
+                                          //frame.endpos - ((ms - TEST_N_DEBUG_MS_OFFSET) * sampleRate / 1000), // TEST'n'DEBUG
+                                          errors                       // Error count
+                                          );*/
 
 //                               prevRead = frame.endpos;
                        }
+      
     }else{
         printf("RDRd%d\n", data.length());
     }
