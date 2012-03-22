@@ -24,12 +24,16 @@ Rectangle {
             anchors.top: parent.top;
             anchors.left: parent.left;
             id: goalInput
-            text: "1:30:0"
+            text: "0"
             font.pointSize: 10
             color: "white"
+            onTextChanged: {
+                goalInput.color = "white";
+            }
             onAccepted: {
                 var goals = goalInput.text.split(":");
                 var goalSecs = (parseInt(goals[0])*3600)+(parseInt(goals[1])*60)+parseInt(goals[2]);
+                goalInput.color = "green";
                 top.goalChanged(goalSecs);
             }
     //        anchors.centerIn: parent
@@ -51,9 +55,26 @@ Rectangle {
     }
     function onTimeRecieved(time, goal) {
         centralText.text = time.hours+":"+time.mins+"."+time.secs;
-        countdownText.text = "is";
-        var goals = goalInput.text.split(":");
-        var goalSecs = (parseInt(goals[0])*3600)+(parseInt(goals[1])*60)+parseInt(goals[2]);
+        
+        countdownText.text = "her har det skjedd noe rart";
+        var goalSecs;
+        if(goalInput.text == "0" || 
+           goalInput.text == "" || 
+           goalInput.text == "extern"){
+            //Get goals externally, or no countdown if no goals
+            if(goal==0){
+                countdownText.text = "-";
+                return;
+            } else{
+                goalInput.text = "extern";
+                goalSecs = parseInt(goal);
+            }
+        } else{
+            //Get goals from local field
+            var goals = goalInput.text.split(":");
+            goalSecs = (parseInt(goals[0])*3600)+(parseInt(goals[1])*60)+parseInt(goals[2]);
+        }
+
         var nowSecs = (time.hours*3600)+(time.mins*60)+time.secs;
         var diff = goalSecs-nowSecs;
         var neg = false;

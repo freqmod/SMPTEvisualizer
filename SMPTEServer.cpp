@@ -37,7 +37,7 @@ void SMPTEServer::sendTimeInfo(QVariant timestamp, QVariant goal_arg){
    out.setVersion(QDataStream::Qt_4_0);
    out <<  timestamp;
    if(goal!=0){
-       out << (quint32) goal;
+       out << QVariant(goal);
    }else{
        out <<  goal_arg;
    }
