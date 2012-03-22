@@ -17,7 +17,7 @@ public:
 
 signals:
     void timeRecieved(SMPTETime time);
-    void timeRecieved(QVariant time);
+    void timeRecieved(QVariant time, QVariant goal);
     void timeRecieved(int time);
 public slots:
    void readyRead();

@@ -66,7 +66,7 @@ void SmpteLTCDecodeInterface::readyRead(){
                                mtime["delayed"] = QVariant(frame.delayed);
                                mtime["ms"]    = QVariant(ms);
                                QVariant qvtime;
-                               emit timeRecieved(QVariant(mtime));
+                               emit timeRecieved(QVariant(mtime), QVariant(0));
                                emit timeRecieved(ms);
 
 /*                               printf("%02d:%02d:%02d%c%02d %8d %8lu %8lu %4d\n",

@@ -6,6 +6,7 @@ DEPLOYMENTFOLDERS = folder_01
 # Additional import path used to resolve QML modules in Creators code model
 QML_IMPORT_PATH =
 
+QT += network 
 CONFIG+= multimediakit
 CONFIG += qt debug
 
@@ -16,7 +17,8 @@ CONFIG += qt debug
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    jltcinterface.cpp
+    jltcinterface.cpp \
+    SMPTEServer.cpp
 
 unix|win32: LIBS += -lltcsmpte
 
@@ -32,5 +34,6 @@ include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    jltcinterface.h
+    jltcinterface.h \
+    SMPTEServer.hpp
 

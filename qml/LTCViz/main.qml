@@ -1,6 +1,8 @@
 import QtQuick 1.0
 
 Rectangle {
+    signal goalChanged(variant goal);
+    id: top;
     width: 1280
     height: 720
     color: "black"
@@ -25,6 +27,11 @@ Rectangle {
             text: "1:30:0"
             font.pointSize: 10
             color: "white"
+            onAccepted: {
+                var goals = goalInput.text.split(":");
+                var goalSecs = (parseInt(goals[0])*3600)+(parseInt(goals[1])*60)+parseInt(goals[2]);
+                top.goalChanged(goalSecs);
+            }
     //        anchors.centerIn: parent
         }
         Text {
@@ -42,7 +49,7 @@ Rectangle {
                 }
             }
     }
-    function onTimeRecieved(time) {
+    function onTimeRecieved(time, goal) {
         centralText.text = time.hours+":"+time.mins+"."+time.secs;
         countdownText.text = "is";
         var goals = goalInput.text.split(":");
